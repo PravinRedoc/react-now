@@ -2,6 +2,7 @@ import RestaurantCard from "./RestaurantCard"
 import resData from "../utils/resList";
 import { useState, useEffect } from "react";
 import Shimer from "./Shimer";
+import { Link } from "react-router-dom";
 
 
 //Body
@@ -38,7 +39,11 @@ return ListOfRestaurants.length === 0?<Shimer /> : ( <div className="body">
                setFilteredRestaurants(ListOfRestaurants.filter((res) => res.info.avgRating>=4));
             }}>Top rated restaurants</button></div>
             <div className="res-container">                   
-                    {FilteredRestaurants.map((res) => <RestaurantCard key={res.info.id} resData={res} />)}           
+                    {FilteredRestaurants.map((res) => 
+                    <Link key={res.info.id} to={"/restaurants/"+res.info.id}>
+                    <RestaurantCard  resData={res} />
+                    </Link>
+                    )}           
                </div>
             </div>
     )
