@@ -3,27 +3,16 @@ import { useEffect } from 'react';
 import Shimer from './Shimer';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import { MENU_URL } from  '../utils/constants'
+import useRestaurantMenu from '../utils/useRestaurantMenu';
 
 export const RestaurtantMenu = () => {
 
-    const [resInfo, setResInfo] = useState([]);
     const {resId} = useParams();
+    const resInfo = useRestaurantMenu(resId);
 
-    useEffect(()=>{
-        fetchMenu();      
-
-    },[])
-
-    const fetchMenu = async ()=> {
-        const data = await fetch(
-            "https://corsproxy.io/?https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.9715987&lng=77.5945627&restaurantId="+resId
-            );
-            const json = await data.json();
-            setResInfo(json.data)
-            console.log(json);          
-             };
             
-     if(resInfo.length === 0){
+     if(resInfo === null){
         return <Shimer/>;
      } 
      else {     
