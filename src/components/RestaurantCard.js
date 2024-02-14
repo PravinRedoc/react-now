@@ -1,12 +1,14 @@
 //RestaurantCard
 
+import { CON_URL } from "../utils/constants";
+
 const RestaurantCard = (props) =>{
 
         const {resData} = props;
         
-        return( <div className="res-card m-4 p-4 w-56 bg-gray-200 rounded-lg shadow-sm hover:bg-gray-400 hover:shadow-lg hover:shadow-orange-200">
+        return( <div className="res-card m-4 p-4 w-72 bg-gray-200 rounded-lg shadow-sm hover:bg-gray-400 hover:shadow-lg hover:shadow-orange-200">
                 <div className="image">
-                        <img className="res-logo w-[200px] h-[200px]" src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_1024/"+resData.info.cloudinaryImageId} alt="res-logo" />
+                        <img className="res-logo" src={CON_URL+resData.info.cloudinaryImageId} alt="res-logo" />
                 </div>
                 <h3 className="res-name font-bold py-2 text-xl rounded-sm">{resData.info.name}</h3>
                 <h4 className="cuisine">{resData.info.cuisines.join(", ")}</h4>  
@@ -17,7 +19,21 @@ const RestaurantCard = (props) =>{
 
                 </div>
         )
-}
+};
 
-export default RestaurantCard
+
+export const withRestaurantPromoted = (RestaurantCard) => {
+
+        return (props) => {
+                return (
+                        <div className="withPromoted">
+                        <label>Promoted</label>
+                        <RestaurantCard {...props}/>
+                        </div>
+                )
+        }
+
+};
+
+export default RestaurantCard;
 

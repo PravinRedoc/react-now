@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Shimer from "./Shimer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import { withRestaurantPromoted } from "./RestaurantCard";
 
 
 //Body
@@ -48,7 +49,7 @@ return ListOfRestaurants.length === 0?<Shimer /> : ( <div className="body">
             <div className="res-containerv flex flex-wrap">                   
                     {FilteredRestaurants.map((res) => 
                     <Link key={res.info.id} to={"/restaurants/"+res.info.id}>
-                    <RestaurantCard  resData={res} />
+                    {res.info.promoted ? <withRestaurantPromoted  resData={res} />:<RestaurantCard  resData={res} />}
                     </Link>
                     )}           
                </div>
