@@ -8,6 +8,9 @@ import AboutUs from "./components/AboutUs"
 import Error from "./components/Error"
 import RestaurtantMenu from "./components/RestaurtantMenu"
 import Shimer from "./components/Shimer"
+import { Provider } from "react-redux"
+import appStore from "./utils/appStore"
+import Cart from "./components/Cart"
 
 /*
 AppLayout
@@ -20,11 +23,15 @@ Footer - copyright.links,address,contact
 const Grocery = lazy(() =>import('./components/Grocery'));
 //app layout
 const AppLayout = () => {
-    return <div className="app">
-            <Header />
-            <Outlet />
-    </div>;
-};
+    return(
+         <Provider store={appStore}>
+            <div className="app">
+                    <Header />
+                    <Outlet />
+                    
+            </div>    
+        </Provider>);
+    };
 
 const appRouter  = createBrowserRouter([
     {
@@ -46,6 +53,10 @@ const appRouter  = createBrowserRouter([
             {
                 path: "/grocery",
                 element: <Suspense fallback={<h1><Shimer /></h1>}><Grocery /></Suspense>,
+            },
+            {
+                path: "/cart",
+                element: <Cart />
             },
             {
                 path: "/restaurants/:resId",
